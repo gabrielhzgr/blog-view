@@ -1,0 +1,80 @@
+.app {
+  flex: 1;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.7s ease;
+  --title-font: Ubuntu, sans-serif;
+  font-family: Lora, serif;
+  --second-color: orange;
+  --third-color: dodgerblue;
+  --accent-color: rgb(26, 203, 135);
+}
+
+.app main {
+  display: flex;
+  flex: 1;
+  padding: 20px;
+  justify-content: center;
+  height: fit-content;
+  position: relative;
+}
+
+.light {
+  --fg-color: rgb(3, 15, 20);
+  --bg-color: whitesmoke;
+  color: var(--fg-color);
+  background-color: var(--bg-color);
+  --text-shadow: -1px 1px 3px var(--fg-color);
+}
+
+.dark {
+  --fg-color: whitesmoke;
+  --bg-color: rgb(24, 18, 14);
+  color: var(--fg-color);
+  background-color: var(--bg-color);
+  --text-shadow: -1px 1px var(--fg-color);
+}
+
+@keyframes loading {
+  from {
+    background-color: darkgray;
+  }
+
+  to {
+    background-color: grey;
+  }
+}
+
+:global(.clickable) {
+  text-decoration: none;
+  color: var(--fg-color);
+  text-shadow: -2px 2px var(--accent-color);
+  font-weight: bolder;
+}
+
+:global(.clickable.pushed) {
+  text-shadow: none;
+  color: var(--fg-color);
+}
+
+:global(.loading) {
+  animation-name: loading;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+:global(.button) {
+  padding: 15px;
+  width: fit-content;
+  background-color: var(--fg-color);
+  color: var(--bg-color);
+  text-shadow: none;
+  box-shadow: -4px 4px var(--accent-color);
+}
+
+:global(.button.pushed) {
+  color: var(--bg-color);
+  box-shadow: none;
+}

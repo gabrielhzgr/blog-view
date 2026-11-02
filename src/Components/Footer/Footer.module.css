@@ -1,0 +1,49 @@
+.footer {
+  border-top: thin solid var(--fg-color);
+  height: 200px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.footer .link {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.footer .logo {
+  max-height: 20px;
+}
+
+.footer.light .github-logo {
+  content: url(../../assets/GitHub_Invertocat_Black.svg);
+}
+
+.footer.dark .github-logo {
+  content: url(../../assets/GitHub_Invertocat_White.svg);
+}
+
+.footer.light .linkedin-logo {
+  content: url(../../assets/InBug-Black.png);
+}
+
+.footer.dark .linkedin-logo {
+  content: url(../../assets/InBug-White.png);
+}
+
+.footer.light .youtube-logo {
+  content: url(../../assets/yt_icon_almostblack_digital.png);
+}
+
+.footer.dark .youtube-logo {
+  content: url(../../assets/yt_icon_white_digital.png);
+}
+
+.footer .links {
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  width: fit-content;
+  gap: 5px;
+}

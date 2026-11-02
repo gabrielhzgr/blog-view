@@ -1,0 +1,17 @@
+.home {
+  flex: 1;
+  display: flex;
+}
+
+.home .about {
+  flex: 1;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0px;
+  height: 200px;
+  left: 0px;
+  border-top: thin solid var(--fg-color);
+  width: 100%;
+}

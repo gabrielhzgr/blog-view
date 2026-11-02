@@ -1,0 +1,33 @@
+.nav {
+  height: 85px;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  transition: inherit;
+  align-items: center;
+  background-color: var(--primary-color);
+  position: sticky;
+  border-bottom: thin solid var(--fg-color);
+}
+
+.nav .main-title {
+  font-size: 2em;
+  padding: 10px;
+}
+
+.nav ul.actions {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.nav ul.actions > * {
+  height: 100%;
+  padding: 20px;
+  width: 100px;
+  display: flex;
+  font-size: 1.1em;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--title-font);
+}

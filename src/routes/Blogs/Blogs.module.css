@@ -1,0 +1,26 @@
+.blogs {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.article {
+  height: 300px;
+  width: 100%;
+  position: relative;
+}
+
+.article img {
+  height: 100%;
+  width: 100%;
+}
+
+.article a {
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  left: 0px;
+  bottom: 10px;
+}

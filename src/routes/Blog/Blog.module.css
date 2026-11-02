@@ -1,0 +1,70 @@
+.blog {
+  width: 100%;
+  height: fit-content;
+  padding: 15px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.blog a {
+  text-decoration-style: dotted;
+  color: var(--third-color);
+}
+
+.blog a:visited {
+  text-decoration-line: none;
+  color: var(--accent-color);
+}
+
+.blog.loading h1 {
+  text-align: center;
+  width: 100%;
+  height: 40px;
+}
+
+.blog.loading .teaser {
+  display: flex;
+  height: fit-content;
+}
+
+.blog.loading .teaser .img {
+  flex: 3;
+}
+
+.blog.loading .teaser .img {
+  vertical-align: text-top;
+  text-align: center;
+  font-size: 20em;
+
+  color: grey;
+}
+
+.blog .teaser .aside {
+  flex: 1;
+  height: 450px;
+}
+
+.content {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-bottom: thin solid var(--fg-color);
+}
+
+.blog.loading p {
+  height: 20px;
+}
+
+.blog p {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.blog .load-comments {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
