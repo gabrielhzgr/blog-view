@@ -5,9 +5,6 @@ function usePost(id) {
   const [post, setPost] = useState(null);
   const [error, setError] = useState(null);
 
-  console.log(isPending, "pending");
-  console.log(post, "post");
-
   useEffect(() => {
     async function getPost() {
       try {

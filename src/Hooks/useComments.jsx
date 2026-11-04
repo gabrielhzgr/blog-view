@@ -2,11 +2,8 @@ import { useState, useEffect } from "react";
 import api from "../api/api.js";
 function useComments(postId, page) {
   const [isPending, setPending] = useState(true);
-  const [post, setPost] = useState(null);
+  const [comments, setComments] = useState(null);
   const [error, setError] = useState(null);
-
-  console.log(isPending, "pending");
-  console.log(post, "post");
 
   useEffect(() => {
     async function getPost() {
@@ -16,10 +13,12 @@ function useComments(postId, page) {
           setError(result.error);
         }
 
-        if (result.post) {
-          console.log(result.posts);
-
-          setPost(result.post);
+        if (result.comments) {
+          if (page == 1) {
+            setComments(result.comments);
+          } else {
+            setComments([...comments, ...result.comments]);
+          }
         }
         setPending(false);
       } catch (err) {
@@ -30,7 +29,7 @@ function useComments(postId, page) {
     getPost();
   }, [page]);
 
-  return { post, isPending, setPending, error };
+  return { comments, setComments, isPending, setPending, error };
 }
 
 export default useComments;

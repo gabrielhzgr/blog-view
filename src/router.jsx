@@ -20,7 +20,7 @@ const router = createBrowserRouter([
           {
             path: ":id",
             element: <Blog />,
-            children: [{ path: "comments", element: <Comments /> }],
+            children: [{ index: true, element: <Comments /> }],
           },
         ],
       },

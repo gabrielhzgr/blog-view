@@ -5,7 +5,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 50px;
 }
 
 .blog a {
@@ -51,7 +51,9 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  border-bottom: thin solid var(--fg-color);
+  background-color: var(--div-color);
+  padding: 10px;
+  border-radius: 10px;
 }
 
 .blog.loading p {

@@ -2,10 +2,8 @@ import { useEffect, useState } from "react";
 import api from "../api/api";
 function usePosts(page) {
   const [isPending, setPending] = useState(true);
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState(null);
   const [error, setError] = useState(null);
-
-  console.log(isPending, "pending");
 
   useEffect(() => {
     async function getPosts() {
@@ -16,8 +14,6 @@ function usePosts(page) {
         }
 
         if (result.posts) {
-          console.log(result.posts);
-
           if (page == 1) {
             setPosts(result.posts);
           } else {

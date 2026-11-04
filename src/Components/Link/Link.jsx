@@ -1,5 +1,5 @@
 import { Link as RouterLink } from "react-router";
-function Link({ to, children, className, target }) {
+function Link({ to, children, className, target, onClick }) {
   function pushed(e) {
     e.target.classList.remove("lift");
     e.target.classList.add("pushed");
@@ -19,6 +19,7 @@ function Link({ to, children, className, target }) {
       onMouseDown={pushed}
       onTouchEnd={lift}
       onMouseUp={lift}
+      onClick={onClick}
     >
       {children}
     </RouterLink>

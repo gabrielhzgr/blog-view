@@ -16,14 +16,15 @@ function Blogs() {
   return (
     <section className={styles["blogs"]}>
       {error ? <Error error={error} /> : null}
-      {posts
-        ? posts.map((post) => {
+      {posts ? (
+        <>
+          {posts.map((post) => {
             return <Post post={post} key={post.id} />;
-          })
-        : null}
+          })}
+          {!isPending ? <Button onClick={loadMore}>Load more</Button> : null}
+        </>
+      ) : null}
       {isPending ? <Skeleton /> : null}
-
-      <Button onClick={loadMore}>Load more</Button>
     </section>
   );
 }

@@ -3,12 +3,10 @@ import usePost from "../../Hooks/usePost";
 import Error from "../../Components/Error/Error";
 import styles from "./Blog.module.css";
 import { Outlet } from "react-router";
-import Button from "../../Components/Button/Button.jsx";
-import { useNavigate } from "react-router";
+
 function Blog() {
   const { id } = useParams();
   const { post, isPending, error } = usePost(id);
-  const navigate = useNavigate();
 
   return (
     <>
@@ -17,18 +15,10 @@ function Blog() {
       {post ? (
         <section className={styles["blog"]}>
           <section
-            className={styles["blog"]}
+            className={styles["content"]}
             dangerouslySetInnerHTML={{ __html: post.content }}
           ></section>
-          <Button
-            className={styles["load-comments"]}
-            onClick={() => {
-              navigate("comments");
-            }}
-          >
-            Load comments
-          </Button>
-          <Outlet></Outlet>
+          <Outlet context={{ postId: id }}></Outlet>
         </section>
       ) : null}
     </>

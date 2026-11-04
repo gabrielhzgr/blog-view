@@ -9,47 +9,11 @@ class Post extends API {
     super(baseUrl);
   }
 
-  getHeaders() {
-    const token = localStorage.getItem("token");
-    const headers = { "Content-Type": "application/json" };
-    if (token) {
-      const jwt = JSON.parse(token).token;
-      headers["Authorization"] = `Bearer ${jwt}`;
-    }
-
-    return headers;
-  }
-
-  async create(data) {
-    const url = `${this.baseUrl}/posts/`;
-    const response = await fetch(url, {
-      method: "POST",
-      headers: this.getHeaders(),
-      body: JSON.stringify(data),
-    });
-    if (response.status == 200) {
-      const result = await response.json();
-      return result;
-    } else {
-      let error = await response.json();
-      return {
-        error: Object.assign(
-          new Response(error.name, {
-            status: response.status,
-            statusText: error.error,
-          }),
-          { name: error.name },
-        ),
-      };
-    }
-  }
-
   async getPosts(page) {
     const limit = 10;
     const url = `${this.baseUrl}/posts?page=${page}&limit=${limit}`;
     const response = await fetch(url, {
       method: "GET",
-      headers: this.getHeaders(),
     });
     if (response.status == 200) {
       const result = await response.json();
@@ -72,7 +36,6 @@ class Post extends API {
     const url = `${this.baseUrl}/posts/${id}`;
     const response = await fetch(url, {
       method: "GET",
-      headers: this.getHeaders(),
     });
     if (response.status == 200) {
       const result = await response.json();
@@ -102,7 +65,29 @@ class Comments extends API {
     const url = `${this.baseUrl}/posts/${postId}/comments?page=${page}&limit=${limit}`;
     const response = await fetch(url, {
       method: "GET",
-      headers: this.getHeaders(),
+    });
+    if (response.status == 200) {
+      const result = await response.json();
+      return result;
+    } else {
+      let error = await response.json();
+      return {
+        error: Object.assign(
+          new Response(error.name, {
+            status: response.status,
+            statusText: error.error,
+          }),
+          { name: error.name },
+        ),
+      };
+    }
+  }
+
+  async postComment(postId, data) {
+    const url = `${this.baseUrl}/posts/${postId}/comments`;
+    const response = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(data),
     });
     if (response.status == 200) {
       const result = await response.json();

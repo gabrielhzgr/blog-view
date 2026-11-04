@@ -9,6 +9,8 @@
   --second-color: orange;
   --third-color: dodgerblue;
   --accent-color: rgb(26, 203, 135);
+  --text-shadow: -1px 2px var(--accent-color);
+  --box-shadow: -4px 4px var(--accent-color);
 }
 
 .app main {
@@ -25,7 +27,7 @@
   --bg-color: whitesmoke;
   color: var(--fg-color);
   background-color: var(--bg-color);
-  --text-shadow: -1px 1px 3px var(--fg-color);
+  --div-color: rgba(128, 128, 128, 0.129);
 }
 
 .dark {
@@ -33,7 +35,7 @@
   --bg-color: rgb(24, 18, 14);
   color: var(--fg-color);
   background-color: var(--bg-color);
-  --text-shadow: -1px 1px var(--fg-color);
+  --div-color: rgba(128, 128, 128, 0.15);
 }
 
 @keyframes loading {
@@ -49,8 +51,9 @@
 :global(.clickable) {
   text-decoration: none;
   color: var(--fg-color);
-  text-shadow: -2px 2px var(--accent-color);
+  text-shadow: var(--text-shadow);
   font-weight: bolder;
+  cursor: pointer;
 }
 
 :global(.clickable.pushed) {
@@ -71,10 +74,20 @@
   background-color: var(--fg-color);
   color: var(--bg-color);
   text-shadow: none;
-  box-shadow: -4px 4px var(--accent-color);
+  box-shadow: var(--box-shadow);
 }
 
 :global(.button.pushed) {
   color: var(--bg-color);
+  box-shadow: none;
+}
+
+:global(label:has(input:required)::before) {
+  content: "* ";
+  color: red;
+}
+
+:global(*:disabled) {
+  background-color: grey;
   box-shadow: none;
 }
