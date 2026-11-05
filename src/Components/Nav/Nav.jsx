@@ -4,6 +4,7 @@ import ThemeContext from "../../Contexts/ThemeContext.jsx";
 import useAuth from "../../Hooks/useAuth.jsx";
 import { useRef } from "react";
 import Button from "../Button/Button.jsx";
+import Error from "../Error/Error.jsx";
 
 import styles from "./Nav.module.css";
 
@@ -24,6 +25,7 @@ const FormLogin = ({ formRef }) => {
       className={`${styles["form-login"]} form-login`}
       onSubmit={handleSubmit}
     >
+      {auth.error ? <Error error={auth.error} /> : null}
       <label htmlFor="username">
         Username
         <input id="username" type="text" placeholder="username" required />
@@ -83,7 +85,10 @@ export default function Nav() {
           Blogs
         </Link>
         {auth.user ? (
-          <Link onClick={handleInfoClick}>{auth.user.username}</Link>
+          <Link onClick={handleInfoClick}>
+            <span class="material-symbols-outlined icon">person</span>
+            {auth.user.username}
+          </Link>
         ) : (
           <Link onClick={handleSignIn}>Sign in</Link>
         )}
@@ -91,9 +96,7 @@ export default function Nav() {
       {!auth.user ? <FormLogin formRef={formLogin} /> : null}
       {auth.user ? (
         <nav className={styles["user-info"]} ref={userInfoRef}>
-          <Link onClick={handleLogout} className={styles["logout-link"]}>
-            Logout
-          </Link>
+          <Button onClick={handleLogout}>Logout</Button>
         </nav>
       ) : null}
     </nav>

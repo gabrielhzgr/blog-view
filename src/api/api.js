@@ -2,6 +2,17 @@ class API {
   constructor(baseUrl) {
     this.baseUrl = baseUrl;
   }
+
+  getHeaders() {
+    const token = localStorage.getItem("token");
+    const headers = { "Content-Type": "application/json" };
+    if (token) {
+      const jwt = JSON.parse(token).token;
+      headers["Authorization"] = `Bearer ${jwt}`;
+    }
+
+    return headers;
+  }
 }
 
 class Post extends API {
@@ -88,6 +99,30 @@ class Comments extends API {
     const response = await fetch(url, {
       method: "POST",
       body: JSON.stringify(data),
+      headers: this.getHeaders(),
+    });
+    if (response.status == 200) {
+      const result = await response.json();
+      return result;
+    } else {
+      let error = await response.json();
+      return {
+        error: Object.assign(
+          new Response(error.name, {
+            status: response.status,
+            statusText: error.error,
+          }),
+          { name: error.name },
+        ),
+      };
+    }
+  }
+
+  async deleteComment(id) {
+    const url = `${this.baseUrl}/comments/${id}`;
+    const response = await fetch(url, {
+      method: "DELETE",
+      headers: this.getHeaders(),
     });
     if (response.status == 200) {
       const result = await response.json();
@@ -113,7 +148,7 @@ class User extends API {
   }
 
   async login(credentials) {
-    const url = `${this.baseUrl}/users/login`;
+    const url = `${this.baseUrl}/users/signin`;
     const response = await fetch(url, {
       method: "POST",
       body: JSON.stringify(credentials),

@@ -53,7 +53,6 @@
   flex-direction: column;
   background-color: var(--div-color);
   padding: 10px;
-  border-radius: 10px;
 }
 
 .blog.loading p {

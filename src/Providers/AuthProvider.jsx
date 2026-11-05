@@ -26,6 +26,8 @@ function AuthProvider({ children }) {
 
   async function login(credentials) {
     try {
+      setPending(true);
+      setError(null);
       const result = await api.user.login(credentials);
       if (result.error) {
         setError(result.error);
@@ -42,7 +44,6 @@ function AuthProvider({ children }) {
       }
     } catch (err) {
       setError(err);
-      setError(null);
       setUser(null);
       setToken(null);
       setPending(false);
@@ -55,8 +56,9 @@ function AuthProvider({ children }) {
 
     setUser(null);
     setToken(null);
+    setError(null);
 
-    router.navigate("/posts");
+    router.navigate("/blogs");
   }
 
   return (

@@ -87,7 +87,13 @@
   color: red;
 }
 
-:global(*:disabled) {
-  background-color: grey;
+:global(button:disabled) {
+  background-color: rgba(128, 128, 128, 0.951) !important;
+  color: var(--fg-color) !important;
   box-shadow: none;
+}
+:global(.icon) {
+  display: flex;
+  height: 100%;
+  align-items: center;
 }

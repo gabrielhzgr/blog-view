@@ -2,8 +2,8 @@
   display: flex;
   flex-direction: column;
   min-height: fit-content;
-  width: 100%;
-  gap: 20px;
+  width: 50%;
+  gap: 50px;
 }
 
 .post-comment {
@@ -19,42 +19,68 @@
   text-align: start;
 }
 
-.post-comment input {
-  background-color: var(--div-color);
-  border: none;
-  width: 50%;
-  border-radius: 10px;
-  padding: 7px 10px;
+.post-comment .username {
+  background-color: var(--accent-color);
+  color: var(--bg-color);
+  width: fit-content;
+  padding: 10px;
+  display: flex;
+  align-items: center;
 }
 
 .post-comment textarea {
-  width: 50%;
+  width: 100%;
   background-color: var(--div-color);
   border: none;
-  border-radius: 10px;
   padding: 7px 10px;
   margin-bottom: 10px;
+  color: var(--fg-color);
 }
-.post-comment button {
-  width: 50%;
+
+.comments {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
 }
 
 .comment {
   min-height: 150px;
-  border-radius: 10px;
   display: flex;
   flex-direction: column;
+  gap: 10px;
 }
 
-.comment > * {
-  border-radius: 10px;
-}
 .comment .info {
-  align-self: flex-end;
-  width: 35%;
+  width: 100%;
+  min-width: fit-content;
   flex: 2;
+  gap: 15px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.comment .info > * {
+  display: flex;
+  align-items: center;
+  min-width: fit-content;
+
+  text-wrap: nowrap;
+}
+
+.comment .info .username {
+  color: var(--accent-color);
 }
 
 .comment .content {
   flex: 6;
+  background-color: var(--div-color);
+  padding: 10px;
+}
+
+.comment .delete-button {
+  background-color: white;
+  color: crimson;
+  position: absolute;
+  right: 0px;
 }
