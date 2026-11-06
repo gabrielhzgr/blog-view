@@ -140,6 +140,29 @@ class Comments extends API {
       };
     }
   }
+
+  async getReplies(commentId, page) {
+    const limit = 10;
+    const url = `${this.baseUrl}/comments/${commentId}/replies?page=${page}&limit=${limit}`;
+    const response = await fetch(url, {
+      method: "GET",
+    });
+    if (response.status == 200) {
+      const result = await response.json();
+      return result;
+    } else {
+      let error = await response.json();
+      return {
+        error: Object.assign(
+          new Response(error.name, {
+            status: response.status,
+            statusText: error.error,
+          }),
+          { name: error.name },
+        ),
+      };
+    }
+  }
 }
 
 class User extends API {
@@ -175,7 +198,7 @@ class User extends API {
   }
 }
 
-const baseUrl = import.meta.env.VITE_BLOG_API_URL;
+const baseUrl = import.meta.env.VITE_DEV_API_URL;
 const user = new User(baseUrl);
 const post = new Post(baseUrl);
 const comment = new Comments(baseUrl);

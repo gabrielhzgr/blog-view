@@ -36,7 +36,7 @@ const FormLogin = ({ formRef }) => {
         <input id="password" type="text" placeholder="password" required />
       </label>
       {auth.isPending ? (
-        <Button disabled>Submit</Button>
+        <Button className={"disabled"}>Submit</Button>
       ) : (
         <Button>Submit</Button>
       )}
@@ -86,7 +86,7 @@ export default function Nav() {
         </Link>
         {auth.user ? (
           <Link onClick={handleInfoClick}>
-            <span class="material-symbols-outlined icon">person</span>
+            <span className="material-symbols-outlined icon">person</span>
             {auth.user.username}
           </Link>
         ) : (

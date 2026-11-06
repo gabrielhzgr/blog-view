@@ -87,11 +87,27 @@
   color: red;
 }
 
-:global(button:disabled) {
+:global(*:disabled) {
   background-color: rgba(128, 128, 128, 0.951) !important;
   color: var(--fg-color) !important;
-  box-shadow: none;
+  box-shadow: none !important;
 }
+
+:global(button.disabled) {
+  background-color: rgba(128, 128, 128, 0.951) !important;
+  color: var(--fg-color) !important;
+  box-shadow: none !important;
+  pointer-events: none;
+  cursor: auto;
+}
+
+:global(a.disabled) {
+  color: var(--fg-color) !important;
+  text-shadow: none !important;
+  pointer-events: none;
+  cursor: auto;
+}
+
 :global(.icon) {
   display: flex;
   height: 100%;

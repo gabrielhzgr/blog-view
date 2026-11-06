@@ -2,21 +2,32 @@
 import styles from "./Comments.module.css";
 import Button from "../Button/Button.jsx";
 import Error from "../Error/Error.jsx";
+import Link from "../Link/Link.jsx";
 import useComments from "../../Hooks/useComments.jsx";
+import useReplies from "../../Hooks/useReplies.jsx";
 import useAuth from "../../Hooks/useAuth.jsx";
 import api from "../../api/api.js";
 import { useOutletContext } from "react-router";
 import { useRef, useState } from "react";
 
-const FormPostComment = ({ postId, comments, setComments }) => {
+const FormPostComment = ({
+  title,
+  postId,
+  comments,
+  setComments,
+  parentCommentId,
+}) => {
   const [isPending, setPending] = useState(false);
   const [error, setError] = useState(null);
   const formComment = useRef(null);
   const auth = useAuth();
 
+  console.log(parentCommentId, "parentId");
+
   function handlePostComment(e) {
-    async function postComment(data) {
+    async function postComment(id, data) {
       const result = await api.comment.postComment(postId, data);
+
       if (result.error) {
         setError(result.error);
       }
@@ -25,10 +36,11 @@ const FormPostComment = ({ postId, comments, setComments }) => {
         setComments([result.comment, ...comments]);
       }
       setPending(false);
+      formComment.current.querySelector("textarea").value = "";
     }
     e.preventDefault();
     const content = formComment.current.querySelector("textarea").value;
-    postComment({ userId: auth.user.id, postId, content });
+    postComment(postId, { userId: auth.user.id, content, parentCommentId });
     setPending(true);
   }
 
@@ -39,13 +51,13 @@ const FormPostComment = ({ postId, comments, setComments }) => {
       onSubmit={handlePostComment}
     >
       {error ? <Error error={error} /> : null}
-      <h2>Post a comment</h2>
+      <h2>{title}</h2>
 
       {!auth.user ? <p>You must login to post a comment</p> : null}
       {auth.user ? (
         <>
           <span className={styles["username"]}>
-            <span class="material-symbols-outlined icon">person</span>
+            <span className="material-symbols-outlined icon">person</span>
             {auth.user.username}
           </span>
           <textarea
@@ -55,9 +67,11 @@ const FormPostComment = ({ postId, comments, setComments }) => {
             required
           ></textarea>
           {isPending ? (
-            <Button disabled={true}>Submit</Button>
+            <Button className={`disabled ${styles["submit-button"]}`}>
+              Submit
+            </Button>
           ) : (
-            <Button>Submit</Button>
+            <Button className={`${styles["submit-button"]}`}> Submit</Button>
           )}
         </>
       ) : null}
@@ -86,9 +100,11 @@ function Comments() {
       {comments ? (
         <>
           <FormPostComment
+            title={"Post a comment"}
             postId={postId}
             comments={comments}
             setComments={setComments}
+            isReply={false}
           />
           <section className={styles["comments"]}>
             {comments.map((comment) => {
@@ -114,10 +130,11 @@ function Comments() {
 
 const Comment = ({ comment, setComments, comments }) => {
   const auth = useAuth();
-  const updatedAt = `${new Date(comment.updatedAt).toLocaleDateString()} ${new Date(comment.createAt).toLocaleTimeString()}`;
-  const isCommentOwner = comment.user.id == auth.user.id;
+  const updatedAt = `${new Date(comment.updatedAt).toLocaleDateString()} ${new Date(comment.createdAt).toLocaleTimeString()}`;
+  const isCommentOwner = auth.user && comment.user.id == auth.user.id;
   const [isPending, setPending] = useState(false);
   const [error, setError] = useState(null);
+  const [showReplies, setShowReplies] = useState(false);
 
   function handleDelete() {
     async function deleteComment(id) {
@@ -145,40 +162,93 @@ const Comment = ({ comment, setComments, comments }) => {
     deleteComment(comment.id);
   }
 
-  console.log(isCommentOwner, "owner");
-  console.log(isPending, "pending");
-
   return (
     <article className={styles["comment"]}>
       {error ? <Error error={error} /> : null}
       <p className={styles["info"]}>
         <span className={styles["username"]}>
           {isCommentOwner ? (
-            <span class="material-symbols-outlined icon">person</span>
+            <span className="material-symbols-outlined icon">person</span>
           ) : null}
           {comment.user.username}
         </span>
         <span className={styles["updated-at"]}>{updatedAt}</span>
 
         {isCommentOwner && isPending ? (
-          <Button
-            className={styles["delete-button"]}
-            onClick={handleDelete}
-            disabled={true}
-          >
-            <span class="material-symbols-outlined">delete</span>
-            Delete
-          </Button>
+          <Link className={`${styles["delete-link"]} disabled`}>Delete</Link>
         ) : null}
         {isCommentOwner && !isPending ? (
-          <Button className={styles["delete-button"]} onClick={handleDelete}>
-            <span class="material-symbols-outlined">delete</span>
+          <Link className={styles["delete-link"]} onClick={handleDelete}>
             Delete
-          </Button>
+          </Link>
         ) : null}
       </p>
       <p className={styles["content"]}>{comment.content}</p>
+      {!showReplies ? (
+        <Link
+          onClick={() => {
+            setShowReplies(true);
+          }}
+          className={styles["show-replies-link"]}
+        >
+          <span class="material-symbols-outlined">keyboard_arrow_down</span>
+          Show replies
+        </Link>
+      ) : null}
+      {showReplies ? (
+        <>
+          <Link
+            onClick={() => {
+              setShowReplies(false);
+            }}
+            className={styles["show-replies-link"]}
+          >
+            <span class="material-symbols-outlined">keyboard_arrow_down</span>
+            Hide replies
+          </Link>
+          <Replies comment={comment} />
+        </>
+      ) : null}
     </article>
+  );
+};
+
+const Replies = ({ comment }) => {
+  const [page, setPage] = useState(1);
+  const { replies, setReplies, isPending, error } = useReplies(
+    comment.id,
+    page,
+  );
+
+  function handleLoadMore() {
+    setPage(page + 1);
+  }
+  return (
+    <section className={styles["replies"]}>
+      {error ? <Error error={error} /> : null}
+      {replies ? (
+        <>
+          {replies.map((reply) => {
+            return (
+              <Comment
+                comment={reply}
+                comments={replies}
+                setComments={setReplies}
+              />
+            );
+          })}
+          <FormPostComment
+            title={"Reply"}
+            postId={comment.postId}
+            comments={replies}
+            setComments={setReplies}
+            parentCommentId={comment.id}
+          />
+        </>
+      ) : null}
+      {isPending ? <Skeleton /> : null}
+      {isPending ? <Button onClick={handleLoadMore}>Load more</Button> : null}
+    </section>
   );
 };
 
