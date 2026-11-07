@@ -108,14 +108,18 @@ function Comments() {
           />
           <section className={styles["comments"]}>
             {comments.map((comment) => {
-              return (
-                <Comment
-                  key={comment.id}
-                  comment={comment}
-                  comments={comments}
-                  setComments={setComments}
-                />
-              );
+              const commentsKeys = {};
+              commentsKeys[comment.id] = comment.id;
+              if (!(comment.id in commentsKeys)) {
+                return (
+                  <Comment
+                    key={comment.id}
+                    comment={comment}
+                    comments={comments}
+                    setComments={setComments}
+                  />
+                );
+              }
             })}
             {!isPending ? (
               <Button onClick={loadMoreComments}>Load more</Button>
