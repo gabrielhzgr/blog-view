@@ -9,8 +9,7 @@ function Home() {
           programming here, mainly about Web development<span>.</span>
         </p>
         <p>
-          <span>H</span>ope you can find something useful on the blogs that I
-          post here<span>.</span>
+          <span>H</span>ope you can find something useful here<span>.</span>
         </p>
         <p>
           <span>I</span> will walk through some of the projects I make and share

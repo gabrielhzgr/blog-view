@@ -6,6 +6,7 @@
   font-size: 1.5em;
   padding: 20px;
   box-shadow: -6px 4px var(--accent-color);
+  user-select: text;
 }
 
 .home .about {
