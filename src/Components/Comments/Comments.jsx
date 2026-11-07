@@ -109,8 +109,9 @@ function Comments() {
           <section className={styles["comments"]}>
             {comments.map((comment) => {
               const commentsKeys = {};
-              commentsKeys[comment.id] = comment.id;
+
               if (!(comment.id in commentsKeys)) {
+                commentsKeys[comment.id] = comment.id;
                 return (
                   <Comment
                     key={comment.id}
