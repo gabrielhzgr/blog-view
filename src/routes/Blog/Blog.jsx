@@ -14,6 +14,9 @@ function Blog() {
       {isPending ? <Skeleton /> : null}
       {post ? (
         <section className={styles["blog"]}>
+          <p className={styles["updated-at"]}>
+            {new Date(post.updatedAt).toLocaleString()}
+          </p>
           <section
             className={styles["content"]}
             dangerouslySetInnerHTML={{ __html: post.content }}
