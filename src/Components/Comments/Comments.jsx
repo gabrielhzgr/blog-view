@@ -193,7 +193,7 @@ const Comment = ({ comment, setComments, comments }) => {
           }}
           className={styles["show-replies-link"]}
         >
-          <span class="material-symbols-outlined">keyboard_arrow_down</span>
+          <span className="material-symbols-outlined">keyboard_arrow_down</span>
           Show replies
         </Link>
       ) : null}
@@ -205,7 +205,9 @@ const Comment = ({ comment, setComments, comments }) => {
             }}
             className={styles["show-replies-link"]}
           >
-            <span class="material-symbols-outlined">keyboard_arrow_down</span>
+            <span className="material-symbols-outlined">
+              keyboard_arrow_down
+            </span>
             Hide replies
           </Link>
           <Replies comment={comment} />

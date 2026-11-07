@@ -2,7 +2,7 @@ import Link from "../Link/Link.jsx";
 import { useContext } from "react";
 import ThemeContext from "../../Contexts/ThemeContext.jsx";
 import useAuth from "../../Hooks/useAuth.jsx";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import Button from "../Button/Button.jsx";
 import Error from "../Error/Error.jsx";
 
@@ -10,6 +10,14 @@ import styles from "./Nav.module.css";
 
 const FormLogin = ({ formRef }) => {
   const auth = useAuth();
+
+  useEffect(() => {
+    window.addEventListener("click", () => {
+      if (formRef.classList.contains(styles["active"])) {
+        formRef.classList.remove(styles["active"]);
+      }
+    });
+  });
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -66,7 +74,7 @@ export default function Nav() {
   }
 
   return (
-    <nav className={`${styles["nav"]}`}>
+    <nav className={`${styles["nav"]} ${styles}`}>
       <h1 className={styles["main-title"]}>
         <Link to={"/"}>gabrielhzgr.dev</Link>
       </h1>
