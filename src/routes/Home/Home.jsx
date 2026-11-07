@@ -10,12 +10,15 @@ function Home() {
         </p>
         <p>
           <span>H</span>ope you can find something useful on the blogs that I
-          post here. I will walk through some of the projects I make and share
-          the findings and learnings I get when building<span>.</span>
+          post here<span>.</span>
         </p>
         <p>
-          <span>T</span>hanks to The Odin Project, for all the lectures they
-          share with us<span>.</span>
+          <span>I</span> will walk through some of the projects I make and share
+          the findings and learnings I got from building them<span>.</span>
+        </p>
+        <p>
+          <span>T</span>hanks to The Odin Project, for all the lectures and
+          resources<span>.</span>
         </p>
       </section>
     </section>
