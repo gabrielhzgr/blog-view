@@ -12,9 +12,13 @@ const FormLogin = ({ formRef }) => {
   const auth = useAuth();
 
   useEffect(() => {
-    window.addEventListener("click", () => {
-      if (formRef.classList.contains(styles["active"])) {
-        formRef.classList.remove(styles["active"]);
+    window.addEventListener("click", (e) => {
+      const isFromLogin = e.target.closest(".form-login");
+      if (
+        !isFromLogin &&
+        formRef.current.classList.contains(styles["active"])
+      ) {
+        formRef.current.classList.remove(styles["active"]);
       }
     });
   });
@@ -59,12 +63,14 @@ export default function Nav() {
 
   function handleInfoClick(e) {
     e.preventDefault();
+    e.stopPropagation();
     userInfoRef.current.classList.toggle(styles["active"]);
     userInfoRef.current.focus();
   }
 
   function handleSignIn(e) {
     e.preventDefault();
+    e.stopPropagation();
     formLogin.current.classList.toggle(styles["active"]);
     formLogin.current.focus();
   }
