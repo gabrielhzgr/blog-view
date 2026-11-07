@@ -17,7 +17,7 @@ function Home() {
           the findings and learnings I got from building them<span>.</span>
         </p>
         <p>
-          <span>T</span>hanks to The Odin Project, for all the lectures and
+          <span>T</span>hanks to The Odin Project for all the lectures and
           resources<span>.</span>
         </p>
       </section>
