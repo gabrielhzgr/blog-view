@@ -39,7 +39,7 @@
 }
 
 .form-login input {
-  background-color: var(--div-color);
+  background-color: var(--bg-color);
   border: none;
   width: 100%;
   padding: 7px 10px;

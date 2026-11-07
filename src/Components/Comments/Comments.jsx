@@ -86,8 +86,7 @@ function Comments() {
     postId,
     page,
   );
-
-  console.log(comments);
+  const commentsKeys = {};
 
   function loadMoreComments() {
     setPage(page + 1);
@@ -108,8 +107,6 @@ function Comments() {
           />
           <section className={styles["comments"]}>
             {comments.map((comment) => {
-              const commentsKeys = {};
-
               if (!(comment.id in commentsKeys)) {
                 commentsKeys[comment.id] = comment.id;
                 return (
