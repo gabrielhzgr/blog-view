@@ -6,6 +6,7 @@
   gap: 50px;
   padding: 25px;
   background-color: var(--div-color);
+  margin-top: 20px;
 }
 
 .post-comment {
@@ -57,25 +58,24 @@
 
 .comment .info {
   width: 100%;
-  min-width: fit-content;
   flex: 2;
+  overflow-x: hidden;
   gap: 15px;
   display: flex;
   align-items: center;
   position: relative;
-}
-
-.comment .info > * {
-  display: flex;
-  align-items: center;
-  min-width: fit-content;
-  text-wrap: nowrap;
+  flex-wrap: wrap;
 }
 
 .comment .info .username {
   color: var(--fg-color);
   background-color: var(--div-color);
   padding: 10px;
+}
+
+.info .updated-at {
+  text-wrap: wrap;
+  flex: 1;
 }
 
 .comment .content {
@@ -104,4 +104,10 @@
   position: relative;
   left: 50%;
   transform: translateX(-50%);
+}
+
+@media (max-width: 600px) {
+  .comment-section {
+    width: 100%;
+  }
 }
