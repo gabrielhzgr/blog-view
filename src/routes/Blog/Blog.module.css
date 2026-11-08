@@ -8,6 +8,13 @@
   user-select: text;
 }
 
+.blog pre {
+  background-color: var(--div-color);
+  padding: 20px;
+  overflow-x: scroll;
+  border-radius: 10px;
+  font-family: "Lucida Console", "Courier New", monospace;
+}
 .blog a {
   text-decoration-style: dotted;
   color: var(--third-color);
